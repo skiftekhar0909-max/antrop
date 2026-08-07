@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Category = "All" | "Interiors" | "Architecture";
 
@@ -127,28 +128,38 @@ export default function ProjectGrid() {
         ))}
       </div>
 
-      <div className="projects-grid" aria-live="polite">
-        {visible.map((project, index) => (
-          <article className={`project-card ${project.shape}`} key={project.title}>
-            <div className="project-image">
-              <img src={project.image} alt={`${project.title} by anthrop`} />
-              <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
-              <span className="project-view" aria-hidden="true">Official work</span>
-            </div>
-            <div className="project-card-copy">
-              <div>
-                <h3>{project.title}</h3>
-                <p>{project.category} · Official portfolio</p>
+      <motion.div layout className="projects-grid" aria-live="polite">
+        <AnimatePresence>
+          {visible.map((project, index) => (
+            <motion.article 
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+              className={`project-card ${project.shape}`} 
+              key={project.title}
+            >
+              <div className="project-image">
+                <img src={project.image} alt={`${project.title} by anthrop`} />
+                <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
+                <span className="project-view" aria-hidden="true">Official work</span>
               </div>
-              <div>
-                <p>{project.type}</p>
-                <p>{project.location}</p>
+              <div className="project-card-copy">
+                <div>
+                  <h3>{project.title}</h3>
+                  <p>{project.category} · Official portfolio</p>
+                </div>
+                <div>
+                  <p>{project.type}</p>
+                  <p>{project.location}</p>
+                </div>
               </div>
-            </div>
-            <p className="project-summary">{project.description}</p>
-          </article>
-        ))}
-      </div>
+              <p className="project-summary">{project.description}</p>
+            </motion.article>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 }

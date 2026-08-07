@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 
 const pillars = [
   {
@@ -21,42 +24,66 @@ const pillars = [
   },
 ];
 
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const yHero = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const yBg = useTransform(scrollYProgress, [0, 1], [0, 150]);
+
   return (
     <main id="main-content">
       <section className="hero" id="top">
-        <div className="hero-image" aria-hidden="true">
+        <motion.div className="hero-image" aria-hidden="true" style={{ y: yHero }}>
           <img
             src="/assets/luxury-villa-facade.webp"
             alt=""
             fetchPriority="high"
           />
-        </div>
+        </motion.div>
         <div className="hero-shade" />
-        <div className="hero-content">
-          <p className="eyebrow hero-eyebrow">
+        <motion.div 
+          className="hero-content"
+          initial="hidden"
+          animate="show"
+          variants={staggerContainer}
+        >
+          <motion.p variants={fadeUp} className="eyebrow hero-eyebrow">
             Planning · Interiors · Landscape
-          </p>
-          <h1>
+          </motion.p>
+          <motion.h1 variants={fadeUp}>
             Form, space,
             <br />
             and nature.
             <br />
             <em>Crafted elegantly.</em>
-          </h1>
-          <p className="hero-intro">
+          </motion.h1>
+          <motion.p variants={fadeUp} className="hero-intro">
             anthrop shapes contemporary spaces in Bhubaneswar where architecture,
             interiors and landscape speak one coherent language.
-          </p>
-          <div className="hero-actions">
+          </motion.p>
+          <motion.div variants={fadeUp} className="hero-actions">
             <Link className="button button-light" href="/projects">
               Explore selected work <span aria-hidden="true">↗</span>
             </Link>
             <Link className="text-link text-link-light" href="/contact">
               Begin a project <span aria-hidden="true">→</span>
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         <div className="hero-index">
           <span>20.29° N</span>
           <span>85.82° E</span>
@@ -70,11 +97,17 @@ export default function Home() {
           <span className="orange-dot" />
           <p>One studio. Three disciplines.</p>
         </div>
-        <p className="statement-copy reveal">
+        <motion.p 
+          className="statement-copy reveal"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeUp}
+        >
           We design from the outside in—and the inside out. Every project begins
           with context, follows human movement, and ends in a space that feels
           inevitable.
-        </p>
+        </motion.p>
       </section>
 
       <section className="pillars section-pad">
@@ -82,20 +115,28 @@ export default function Home() {
           <p className="eyebrow">What we shape</p>
           <h2>An integrated design practice.</h2>
         </div>
-        <div className="pillar-grid">
+        <motion.div 
+          className="pillar-grid"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {pillars.map((pillar) => (
-            <Link className="pillar-card reveal" href={pillar.href} key={pillar.number}>
-              <div className="pillar-top">
-                <span>{pillar.number}</span>
-                <span className="round-arrow" aria-hidden="true">
-                  ↗
-                </span>
-              </div>
-              <h3>{pillar.title}</h3>
-              <p>{pillar.text}</p>
-            </Link>
+            <motion.div variants={fadeUp} key={pillar.number}>
+              <Link className="pillar-card reveal" href={pillar.href}>
+                <div className="pillar-top">
+                  <span>{pillar.number}</span>
+                  <span className="round-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </div>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="selected-work">
@@ -111,7 +152,8 @@ export default function Home() {
           </Link>
         </div>
         <Link className="feature-project reveal" href="/projects">
-          <img
+          <motion.img
+            style={{ y: yBg }}
             src="/assets/executive-bedroom-tv-console.webp"
             alt="Executive bedroom with bespoke wooden TV console, mini bar and leather armchairs"
           />
@@ -137,7 +179,13 @@ export default function Home() {
           </p>
         </div>
         <div className="actual-work-grid">
-          <figure className="actual-work-wide reveal">
+          <motion.figure 
+            className="actual-work-wide reveal"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+          >
             <img
               src="/assets/master-bed-ambient-lighting.webp"
               alt="Master bedroom with ambient strip lighting, warm wooden panelling and botanical artwork"
@@ -149,8 +197,14 @@ export default function Home() {
                 <small>Interior design · Bhubaneswar</small>
               </div>
             </figcaption>
-          </figure>
-          <figure className="actual-work-tall reveal">
+          </motion.figure>
+          <motion.figure 
+            className="actual-work-tall reveal"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+          >
             <img
               src="/assets/contemporary-multistorey-elevation.webp"
               alt="Contemporary multi-storey residential facade with balconies and greenery"
@@ -162,7 +216,7 @@ export default function Home() {
                 <small>Residential architecture · Bhubaneswar</small>
               </div>
             </figcaption>
-          </figure>
+          </motion.figure>
         </div>
       </section>
 
@@ -171,28 +225,34 @@ export default function Home() {
           <p className="eyebrow">How we work</p>
           <h2>Curious first. Precise always.</h2>
         </div>
-        <ol className="process-list">
-          <li className="reveal">
+        <motion.ol 
+          className="process-list"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.li variants={fadeUp} className="reveal">
             <span>01</span>
             <h3>Listen</h3>
             <p>We uncover the brief beneath the brief—needs, rituals, constraints and ambition.</p>
-          </li>
-          <li className="reveal">
+          </motion.li>
+          <motion.li variants={fadeUp} className="reveal">
             <span>02</span>
             <h3>Frame</h3>
             <p>Site, climate and movement become a clear spatial strategy before style enters.</p>
-          </li>
-          <li className="reveal">
+          </motion.li>
+          <motion.li variants={fadeUp} className="reveal">
             <span>03</span>
             <h3>Shape</h3>
             <p>Plans, materials, light and planting evolve together through disciplined iteration.</p>
-          </li>
-          <li className="reveal">
+          </motion.li>
+          <motion.li variants={fadeUp} className="reveal">
             <span>04</span>
             <h3>Realise</h3>
             <p>Detailed documentation and design coordination protect the original intent on site.</p>
-          </li>
-        </ol>
+          </motion.li>
+        </motion.ol>
       </section>
 
       <section className="home-cta">

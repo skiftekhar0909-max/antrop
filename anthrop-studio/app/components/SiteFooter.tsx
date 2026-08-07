@@ -41,8 +41,13 @@ export default function SiteFooter() {
         </div>
 
         <nav aria-label="Footer navigation">
+          <Link href="/about">About</Link>
           <Link href="/projects">Projects</Link>
           <Link href="/services">Services</Link>
+          <Link href="/team">Team</Link>
+          <Link href="/process">Process</Link>
+          <Link href="/testimonials">Testimonials</Link>
+          <Link href="/faq">FAQ</Link>
           <Link href="/contact">Consultation</Link>
         </nav>
       </div>
