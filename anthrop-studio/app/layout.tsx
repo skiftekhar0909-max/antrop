@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
+import LenisProvider from "./components/animations/LenisProvider";
+import ContinuousBackground from "./components/animations/ContinuousBackground";
 
 export const metadata: Metadata = {
   title: {
@@ -24,12 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <a className="skip-link" href="#main-content">
-          Skip to content
-        </a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <LenisProvider>
+          <ContinuousBackground />
+          <a className="skip-link" href="#main-content">
+            Skip to content
+          </a>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </LenisProvider>
       </body>
     </html>
   );

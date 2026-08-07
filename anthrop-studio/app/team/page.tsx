@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import TextReveal from "../components/animations/TextReveal";
+import TiltCard from "../components/animations/TiltCard";
 
 const teamMembers = [
   {
@@ -24,46 +26,58 @@ const teamMembers = [
 ];
 
 export default function TeamPage() {
+  const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 100, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
+  };
+
+  const staggerContainer: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
   return (
     <main id="main-content" className="page-pad">
-      <section className="section-pad">
-        <div className="section-heading">
-          <p className="eyebrow">Our People</p>
-          <h1>The Team</h1>
-          <p>Meet the designers and architects shaping Anthrop Studio.</p>
+      <motion.section 
+        className="section-pad"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
+        <div className="section-heading mb-16">
+          <motion.p variants={fadeUp} className="eyebrow">Our People</motion.p>
+          <TextReveal elementType="h1" text="The Team" delay={0.1} />
+          <motion.p variants={fadeUp} className="mt-4 text-xl text-gray-600">
+            Meet the designers and architects shaping Anthrop Studio.
+          </motion.p>
         </div>
-        <div className="team-grid">
+        <div className="team-grid grid grid-cols-1 md:grid-cols-3 gap-12">
           {teamMembers.map((member, i) => (
             <motion.div
               key={member.name}
-              className="team-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              whileHover="hover"
+              className="team-card relative group"
+              variants={fadeUp}
             >
-              <div className="team-image-wrapper">
-                <img src={member.image} alt={member.name} />
-                <motion.div 
-                  className="team-hover-overlay"
-                  variants={{
-                    hover: { opacity: 1 }
-                  }}
-                  initial={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p>{member.bio}</p>
-                </motion.div>
-              </div>
-              <div className="team-meta">
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
+              <TiltCard intensity={15}>
+                <div className="team-image-wrapper relative overflow-hidden rounded-xl h-[500px]">
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="team-hover-overlay absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                    <p className="text-white text-lg">{member.bio}</p>
+                  </div>
+                </div>
+              </TiltCard>
+              <div className="team-meta mt-6 text-center">
+                <h3 className="text-2xl font-medium">{member.name}</h3>
+                <p className="text-gray-500 mt-2">{member.role}</p>
               </div>
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

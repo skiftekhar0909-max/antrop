@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MagneticButton from "./animations/MagneticButton";
 
 const links = [
   { href: "/", label: "Studio" },
@@ -16,25 +17,31 @@ export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link className="brand-lockup" href="/" aria-label="anthrop home">
-          <img src="/assets/anthrop-symbol-dark.png" alt="" />
-          <span className="brand-type">
-            <strong>anthrop</strong>
-            <small>Planning · Interior · Landscape</small>
-          </span>
-        </Link>
+        <MagneticButton strength={15}>
+          <Link className="brand-lockup" href="/" aria-label="anthrop home">
+            <img src="/assets/anthrop-symbol-dark.png" alt="" />
+            <span className="brand-type">
+              <strong>anthrop</strong>
+              <small>Planning · Interior · Landscape</small>
+            </span>
+          </Link>
+        </MagneticButton>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {links.map((link) => (
-            <Link href={link.href} key={link.href}>
-              {link.label}
-            </Link>
+            <MagneticButton key={link.href} strength={20}>
+              <Link href={link.href}>
+                {link.label}
+              </Link>
+            </MagneticButton>
           ))}
         </nav>
 
-        <Link className="header-cta" href="/contact">
-          Book a consultation <span aria-hidden="true">↗</span>
-        </Link>
+        <MagneticButton strength={30}>
+          <Link className="header-cta inline-block" href="/contact">
+            Book a consultation <span aria-hidden="true">↗</span>
+          </Link>
+        </MagneticButton>
 
         <details className="mobile-menu">
           <summary aria-label="Open navigation">

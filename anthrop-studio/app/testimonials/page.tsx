@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import TextReveal from "../components/animations/TextReveal";
+import TiltCard from "../components/animations/TiltCard";
 
 const testimonials = [
   {
@@ -35,38 +37,54 @@ export default function TestimonialsPage() {
   }, []);
 
   return (
-    <main id="main-content" className="page-pad">
+    <main id="main-content" className="page-pad min-h-screen flex flex-col justify-center">
       <section className="section-pad">
-        <div className="section-heading text-center">
-          <p className="eyebrow">Client Voices</p>
-          <h1>Testimonials</h1>
-        </div>
+        <motion.div 
+          className="section-heading text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <motion.p 
+            className="eyebrow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            Client Voices
+          </motion.p>
+          <TextReveal elementType="h1" text="Testimonials" delay={0.2} />
+        </motion.div>
         
-        <div className="carousel-container">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="testimonial-slide"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            >
-              <blockquote>
-                &quot;{testimonials[currentIndex].quote}&quot;
-              </blockquote>
-              <cite>
-                <strong>{testimonials[currentIndex].client}</strong>
-                <span>{testimonials[currentIndex].project}</span>
-              </cite>
-            </motion.div>
-          </AnimatePresence>
+        <div className="carousel-container max-w-4xl mx-auto">
+          <TiltCard intensity={5}>
+            <div className="bg-white p-12 rounded-2xl shadow-2xl relative overflow-hidden h-[400px] flex flex-col justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  className="testimonial-slide text-center"
+                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -50, scale: 1.05 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <blockquote className="text-3xl md:text-5xl font-light leading-tight mb-8">
+                    &quot;{testimonials[currentIndex].quote}&quot;
+                  </blockquote>
+                  <cite className="block not-italic">
+                    <strong className="block text-xl font-medium">{testimonials[currentIndex].client}</strong>
+                    <span className="text-gray-500 uppercase tracking-widest text-sm mt-2 block">{testimonials[currentIndex].project}</span>
+                  </cite>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </TiltCard>
           
-          <div className="carousel-indicators">
+          <div className="carousel-indicators flex justify-center gap-4 mt-12">
             {testimonials.map((_, idx) => (
               <button
                 key={idx}
-                className={`indicator ${idx === currentIndex ? "active" : ""}`}
+                className={`w-3 h-3 rounded-full transition-all duration-500 ${idx === currentIndex ? "bg-black scale-150" : "bg-gray-300 hover:bg-gray-400"}`}
                 onClick={() => setCurrentIndex(idx)}
                 aria-label={`Go to slide ${idx + 1}`}
               />

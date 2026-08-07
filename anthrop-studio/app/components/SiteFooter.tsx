@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MagneticButton from "./animations/MagneticButton";
 
 export default function SiteFooter() {
   return (
@@ -41,21 +42,29 @@ export default function SiteFooter() {
         </div>
 
         <nav aria-label="Footer navigation">
-          <Link href="/about">About</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/services">Services</Link>
-          <Link href="/team">Team</Link>
-          <Link href="/process">Process</Link>
-          <Link href="/testimonials">Testimonials</Link>
-          <Link href="/faq">FAQ</Link>
-          <Link href="/contact">Consultation</Link>
+          {[
+            { href: "/about", label: "About" },
+            { href: "/projects", label: "Projects" },
+            { href: "/services", label: "Services" },
+            { href: "/team", label: "Team" },
+            { href: "/process", label: "Process" },
+            { href: "/testimonials", label: "Testimonials" },
+            { href: "/faq", label: "FAQ" },
+            { href: "/contact", label: "Consultation" }
+          ].map((link) => (
+            <MagneticButton key={link.href} strength={10}>
+              <Link href={link.href} className="block w-full">{link.label}</Link>
+            </MagneticButton>
+          ))}
         </nav>
       </div>
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} anthrop</p>
         <p>Planning · Interior Design · Landscape Architecture</p>
-        <a href="#main-content">Back to top ↑</a>
+        <MagneticButton strength={15}>
+          <a href="#main-content">Back to top ↑</a>
+        </MagneticButton>
       </div>
     </footer>
   );

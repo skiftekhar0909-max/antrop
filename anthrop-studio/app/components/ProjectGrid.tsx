@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import TiltCard from "./animations/TiltCard";
+
 type Category = "All" | "Interiors" | "Architecture";
 
 const categories: Category[] = ["All", "Interiors", "Architecture"];
@@ -129,22 +131,29 @@ export default function ProjectGrid() {
       </div>
 
       <motion.div layout className="projects-grid" aria-live="polite">
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {visible.map((project, index) => (
             <motion.article 
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, scale: 0.8, y: 100 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 50 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.1, 
+                type: "spring", 
+                bounce: 0.3 
+              }}
               className={`project-card ${project.shape}`} 
               key={project.title}
             >
-              <div className="project-image">
-                <img src={project.image} alt={`${project.title} by anthrop`} />
-                <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
-                <span className="project-view" aria-hidden="true">Official work</span>
-              </div>
+              <TiltCard intensity={15}>
+                <div className="project-image relative overflow-hidden h-full w-full block rounded-xl">
+                  <img src={project.image} alt={`${project.title} by anthrop`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="project-view" aria-hidden="true">Official work</span>
+                </div>
+              </TiltCard>
               <div className="project-card-copy">
                 <div>
                   <h3>{project.title}</h3>
