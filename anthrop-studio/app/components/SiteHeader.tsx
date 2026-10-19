@@ -37,12 +37,6 @@ export default function SiteHeader() {
           ))}
         </nav>
 
-        <MagneticButton strength={30}>
-          <Link className="header-cta inline-block" href="/contact">
-            Book a consultation <span aria-hidden="true">↗</span>
-          </Link>
-        </MagneticButton>
-
         <details className="mobile-menu">
           <summary aria-label="Open navigation">
             <span />
@@ -54,9 +48,6 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <Link className="mobile-book" href="/contact">
-              Book a consultation
-            </Link>
           </nav>
         </details>
       </div>

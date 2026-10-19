@@ -1,10 +1,27 @@
 import type { Metadata } from "next";
 import BookingForm from "../components/BookingForm";
+import ArchitecturalContactMotion from "../components/ArchitecturalContactMotion";
+import ArchitecturalTicker from "../components/ArchitecturalTicker";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact & Studio Consultation | anthrop Architecture Studio Bhubaneswar",
   description:
-    "Book an appointment with anthrop architecture and design studio at DN Oxypark, Bhubaneswar.",
+    "Schedule an architectural, interior, or landscape consultation with anthrop architecture studio at DN Oxypark, Dumduma, Bhubaneswar, Odisha.",
+  keywords: [
+    "contact architect Bhubaneswar",
+    "book architectural consultation",
+    "anthrop studio DN Oxypark",
+    "architecture studio Dumduma",
+    "interior designer consultation Odisha",
+    "hire villa architect Bhubaneswar",
+  ],
+  openGraph: {
+    title: "Contact & Studio Consultation | anthrop Architecture Studio",
+    description:
+      "Schedule a consultation with anthrop architecture studio at DN Oxypark, Bhubaneswar. Discuss residential, interior, and landscape commissions.",
+    url: "https://anthropstudio.com/contact",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {
@@ -15,19 +32,22 @@ export default function ContactPage() {
   return (
     <main id="main-content" className="inner-page contact-page">
       <section className="contact-intro section-pad">
-        <p className="eyebrow">Start a project</p>
+        <p className="eyebrow" style={{ color: "var(--orange)" }}>Start a project · Studio Consultations</p>
         <h1>Tell us about the<br /><em>space you imagine.</em></h1>
         <p>
           Every engagement begins with a scheduled studio consultation. Share a
           few details and choose a time that works for you.
         </p>
+
+        {/* Studio Geolocation & Project Typology Compass Motion Graphic */}
+        <ArchitecturalContactMotion />
       </section>
 
-      <section className="booking-section section-pad">
+      <section className="booking-section section-pad" id="booking-form">
         <BookingForm />
         <aside className="contact-aside">
           <div className="studio-card">
-            <p className="eyebrow">Studio address</p>
+            <p className="eyebrow" style={{ color: "var(--orange)" }}>Studio address</p>
             <h2>DN Oxypark</h2>
             <address>
               Flat no. 3141, Tower — Aqua
@@ -60,7 +80,7 @@ export default function ContactPage() {
           </div>
 
           <div className="hours-card">
-            <p className="eyebrow">Appointments</p>
+            <p className="eyebrow" style={{ color: "var(--orange)" }}>Appointments</p>
             <div className="hours-row">
               <span>Monday — Sunday</span>
               <strong>10:00 AM — 7:00 PM</strong>
@@ -68,7 +88,7 @@ export default function ContactPage() {
             <p>Studio visits are by prior appointment only.</p>
             <div className="studio-rating" aria-label="4.9 rating from 57 reviews">
               <strong>4.9 <span aria-hidden="true">★</span></strong>
-              <span>57 reviews</span>
+              <span>57 verified reviews</span>
             </div>
           </div>
 
@@ -82,6 +102,8 @@ export default function ContactPage() {
           </div>
         </aside>
       </section>
+
+      <ArchitecturalTicker />
     </main>
   );
 }

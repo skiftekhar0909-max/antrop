@@ -14,7 +14,7 @@ export default function ContinuousBackground() {
         zIndex: -1,
         overflow: "hidden",
         pointerEvents: "none",
-        background: "var(--color-bg)",
+        background: "transparent",
       }}
     >
       <motion.div
@@ -55,13 +55,13 @@ export default function ContinuousBackground() {
           opacity: 0.6,
         }}
       />
-      {/* Noise overlay */}
+      {/* Subtle architectural grain */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "url('/assets/noise.png')", /* fallback if noise.png exists, otherwise just a tiny svg data url */
-          opacity: 0.03,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E")`,
+          opacity: 0.4,
           mixBlendMode: "overlay",
         }}
       />

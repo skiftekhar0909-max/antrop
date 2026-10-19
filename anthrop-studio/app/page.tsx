@@ -6,6 +6,10 @@ import TextReveal from "./components/animations/TextReveal";
 import MagneticButton from "./components/animations/MagneticButton";
 import TiltCard from "./components/animations/TiltCard";
 
+import ArchitecturalMotionGraphic from "./components/ArchitecturalMotionGraphic";
+import ArchitecturalTicker from "./components/ArchitecturalTicker";
+import ArchitecturalHeroOverlay from "./components/ArchitecturalHeroOverlay";
+
 const pillars = [
   {
     number: "01",
@@ -51,10 +55,11 @@ export default function Home() {
   return (
     <main id="main-content">
       <section className="hero" id="top" style={{ overflow: "hidden" }}>
+        <ArchitecturalHeroOverlay />
         <motion.div className="hero-image" aria-hidden="true" style={{ y: yHero, scale: scaleHero }}>
           <img
             src="/assets/luxury-villa-facade.webp"
-            alt=""
+            alt="Luxury contemporary villa facade designed by anthrop studio in Bhubaneswar"
             fetchPriority="high"
           />
         </motion.div>
@@ -66,7 +71,7 @@ export default function Home() {
           variants={staggerContainer}
         >
           <motion.p variants={fadeUp} className="eyebrow hero-eyebrow">
-            Planning · Interiors · Landscape
+            Planning · Interiors · Landscape · Bhubaneswar
           </motion.p>
           <TextReveal elementType="h1" text="Form, space, and nature. Crafted elegantly." delay={0.4} />
           
@@ -106,6 +111,9 @@ export default function Home() {
           Luxury Villa Facade · Residential Architecture
         </motion.p>
       </section>
+
+      {/* Kinetic Architectural Keywords Motion Ribbon */}
+      <ArchitecturalTicker />
 
       <motion.section 
         className="statement section-pad"
@@ -161,6 +169,9 @@ export default function Home() {
           ))}
         </motion.div>
       </section>
+
+      {/* Purposeful Interactive Blueprint Motion Graphic */}
+      <ArchitecturalMotionGraphic />
 
       <section className="selected-work">
         <motion.div 

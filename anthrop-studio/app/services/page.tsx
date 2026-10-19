@@ -1,10 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ArchitecturalTicker from "../components/ArchitecturalTicker";
+import ArchitecturalServicesMotion from "../components/ArchitecturalServicesMotion";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services — Architectural Planning, Interior Architecture & Landscape | anthrop Studio",
   description:
-    "Architectural planning, interior architecture and landscape design services from anthrop in Bhubaneswar.",
+    "Explore anthrop studio's core architectural planning, bespoke residential interior architecture, and biophilic landscape design services in Bhubaneswar, Odisha.",
+  keywords: [
+    "architectural planning services",
+    "interior architecture Bhubaneswar",
+    "landscape design Odisha",
+    "residential floor plans",
+    "luxury villa facade architecture",
+    "bespoke joinery services",
+  ],
+  openGraph: {
+    title: "Services — Architectural Planning, Interiors & Landscape | anthrop Studio",
+    description:
+      "One vision, resolved at every scale. Discover anthrop's three integrated disciplines: Architectural Planning, Interior Architecture, and Biophilic Landscape in Odisha.",
+    url: "https://anthropstudio.com/services",
+    type: "website",
+  },
 };
 
 const serviceSections = [
@@ -66,7 +83,7 @@ export default function ServicesPage() {
     <main id="main-content" className="inner-page">
       <section className="page-hero services-hero section-pad">
         <div>
-          <p className="eyebrow">Capabilities</p>
+          <p className="eyebrow" style={{ color: "var(--orange)" }}>Capabilities · Integrated Disciplines</p>
           <h1>One vision,<br /><em>resolved at every scale.</em></h1>
         </div>
         <div className="page-intro">
@@ -76,6 +93,11 @@ export default function ServicesPage() {
             first sketch.
           </p>
         </div>
+      </section>
+
+      {/* Interactive CAD Discipline Simulation Motion Graphic */}
+      <section className="section-pad">
+        <ArchitecturalServicesMotion />
       </section>
 
       <nav className="services-index section-pad" aria-label="Service sections">
@@ -117,8 +139,10 @@ export default function ServicesPage() {
         ))}
       </div>
 
+      <ArchitecturalTicker />
+
       <section className="service-approach section-pad">
-        <p className="eyebrow">A collaborative process</p>
+        <p className="eyebrow" style={{ color: "var(--orange)" }}>A collaborative process</p>
         <blockquote>
           “Good design is not a style applied to a space. It is the clearest
           response to people, place and possibility.”
